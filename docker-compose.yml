@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+
+#  train:
+#    build:
+#      context: .
+#      dockerfile: docker/train.dockerfile
+#    ports:
+#      - 8888:8888
+#    volumes:
+#      - "./:/code"
+  api:
+    build:
+      context: .
+      dockerfile: docker/api.dockerfile
+    environment:
+      PORT: 8000
+    ports:
+      - 8000:8000
+    volumes:
+      - "./:/app"
+
