@@ -8,7 +8,7 @@ from predictor import SwinSpamPredictor
 
 class FolderPathRequest(BaseModel):
     folder_path: str
-    batch_size: int
+    batch_size: int = 8
     threshold: Optional[float] = 0.5
 
 
@@ -30,7 +30,7 @@ async def swin_predict(item: FolderPathRequest) -> List[dict]:
     if folder_path:
         spam_probabilities = predictor.process_folder(folder_path, batch_size)
         for path, prob in zip(os.listdir(folder_path), spam_probabilities):
-            predict = 'spam' if prob >= threshold else 'not spam'
+            predict = 1 if prob >= threshold else 0
             predictions.append({'data': path, 'predict': predict, 'predict proba': prob})
     else:
         return [{"error": "Необходимо предоставить или папку с изображениями, или изображения в форме данных"}]
@@ -51,7 +51,7 @@ async def swin_predict(files: List[UploadFile] = File(None), threshold: float = 
     predictions = []
 
     for file, prob in zip(files, spam_probabilities):
-        predict = 'spam' if prob >= threshold else 'not spam'
+        predict = 1 if prob >= threshold else 0
         predictions.append({'data': file.filename, 'predict': predict, 'predict proba': prob})
 
     return predictions
