@@ -64,7 +64,7 @@
 
     **Через curl:**
     ```bash
-      curl -X POST http://localhost:8000/swin_predict_files -H 'accept: application/json' -H 'Content-Type: multipart/form-data' -F 'files=@/work/data/110948846.jpg;type=image/jpeg' -F 'threshold=0.5'
+      curl -X POST http://localhost:8000/swin_predict_files -H 'accept: application/json' -H 'Content-Type: multipart/form-data' -F 'files=@<path_to_folder>/110948846.jpg;type=image/jpeg' -F 'threshold=0.5'
     ```
 
     **Пример ответа:**
