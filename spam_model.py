@@ -14,7 +14,7 @@ class SwinSpamModel(nn.Module):
         else:
             print("The model does not have a 'head' attribute. Please check the model architecture.")
 
-        checkpoint = torch.load("/app/swin_base_smoothing_sum_cross_entropy_full.pt", map_location='cpu')
+        checkpoint = torch.load("./app/swin_base_smoothing_sum_cross_entropy_full.pt", map_location='cpu')
         self.model_swin_smooth.load_state_dict(checkpoint['model_state_dict'])
 
     def forward(self, image: torch.Tensor) -> torch.Tensor:
