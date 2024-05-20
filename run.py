@@ -1,21 +1,22 @@
 import argparse
 import os
 import requests
+from typing import Any
 
 
-def predict_image(image_path):
+def predict_image(image_path: str) -> None:
     files = {'files': open(image_path, 'rb')}
-    response = requests.post("http://0.0.0.0:8000/swin_predict_files", files=files)
+    response = requests.post("http://127.0.0.1:8000/swin_predict_files", files=files)
     print(response.json())
 
 
-def predict_folder(folder_path, batch_size):
+def predict_folder(folder_path: str, batch_size: int) -> None:
     data = {"folder_path": folder_path, "batch_size": batch_size}
-    response = requests.post("http://0.0.0.0:8000/swin_predict_image", json=data)
+    response = requests.post("http://127.0.0.1:8000/swin_predict_image", json=data)
     print(response.json())
 
 
-def main():
+def main() -> None:
     parser = argparse.ArgumentParser(description='Предсказание спама на изображениях с помощью Swin Transformer')
     parser.add_argument('-i', '--input', type=str, help='Путь к изображению или папке с изображениями')
     parser.add_argument('-b', '--batch_size', type=int, default=16, help='Размер пакета (для папки)')
